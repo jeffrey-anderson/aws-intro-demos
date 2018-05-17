@@ -1,0 +1,25 @@
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html
+Parameters:
+  dbInstanceName:
+    Type: String
+    MinLength: 2
+    MaxLength: 20
+Resources:
+  DB:
+    Type: "AWS::RDS::DBInstance"
+    DeletionPolicy: Delete
+    Properties:
+      Engine: sqlserver-ex
+      # WARNING: If you specify a name, you cannot perform updates that require replacement of this resource.
+      # You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.
+      DBInstanceIdentifier: !Ref dbInstanceName
+      LicenseModel: license-included
+      AllocatedStorage: 20
+      StorageType: gp2
+      DBInstanceClass: db.t2.micro
+      MasterUsername: master_user
+      MasterUserPassword: Bowman#88
+Outputs:
+  Endpoint:
+    Description: Database connection details
+    Value: !Join ["", [!GetAtt DB.Endpoint.Address, ":", !GetAtt DB.Endpoint.Port]]

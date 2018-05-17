@@ -20,3 +20,7 @@ Submit feedback, corrections and suggestions to me at jeff --at-- jeff-anderson.
 Slide Deck -- coming soon \
 [Demo - Launching and EC2 Instance](Demo-LaunchEC2-Instance.docx) \
 Demo - Configure an instance with cloud-init -- coming soon
+
+## Introduction to Amazon RDS
+
+[Slide Deck](https://1drv.ms/b/s!AsY74JxXap271S3A18St76SfyuXe)
