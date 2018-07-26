@@ -31,5 +31,8 @@ Slide Deck -- coming soon \
 
 Slide Deck \
 [Launching an EMR Cluster](./Demo-EMR-Launch.md) \
-[Using Spark with Jupyter](./Demo-Spark-Jupyter.md) 
+[Using Spark with Jupyter](./Demo-Spark-Jupyter.md) \
+[Using Hive with HUE](./Demo-Hive-HUE.md)
+
+
 

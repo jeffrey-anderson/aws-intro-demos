@@ -113,7 +113,10 @@ For a comprehensive list of EMR security options, see [this guide](https://docs.
 
 ## Where to go from here
 
-Once your cluster is up, running, and in a "Waiting" state, continue with the Using an EMR cluster demos.
+Once your cluster is up, running, and in a "Waiting" state, continue with the Using an EMR cluster demos:
+* [Using Spark with Jupyter](./Demo-Spark-Jupyter.md)
+* [Using Hive with HUE](./Demo-Hive-HUE.md)
+
 
 ## Finally
 

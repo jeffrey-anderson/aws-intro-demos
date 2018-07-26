@@ -8,7 +8,7 @@
 ## Launching JupyterHub
 
 1. Choose EMR from the Services screen
-1. From the EMR cluster dashboard click on the cluster name
+1. From the EMR cluster dashboard click on the running cluster name
 1. From "Connections:" click on "JupyterHub"
 1. If you get a warning your connection is not secure:
     1. Choose "Advanced" then "Add Exception"
@@ -158,4 +158,9 @@ temperatures calculated from the DATA_VALUE from rows with an element of 'TMIN':
 
 ## Where to go from here:
 
-*   Using HIVE with HUE
+*   [Using Hive with HUE](./Demo-Hive-HUE.md)
+
+
+## Finally
+
+Once you are done with the demos, terminate your cluster to avoid additional charges. 
