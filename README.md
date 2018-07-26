@@ -18,21 +18,17 @@ Submit feedback, corrections and suggestions to me at jeff --at-- jeff-anderson.
 ## Amazon Elastic Compute Cloud (EC2)
 
 Slide Deck -- coming soon \
-[Demo - Launching and EC2 Instance](Demo-LaunchEC2-Instance.docx)
+[Demo - Launching an EC2 Instance](Demo-LaunchEC2-Instance.docx)
 
 
 ## Introduction to Amazon RDS
 
 [Slide Deck](https://1drv.ms/b/s!AsY74JxXap271S3A18St76SfyuXe)
 
-## Processing big data with Elastic Map Reduce (EMR) and Redshift
-
-### Amazon Elastic Map Reduce
+## Big data processing and analytics with Elastic Map Reduce (EMR)
 
 Slide Deck \
 [Launching an EMR Cluster](./Demo-EMR-Launch.md) \
 [Using Spark with Jupyter](./Demo-Spark-Jupyter.md) \
 [Using Hive with HUE](./Demo-Hive-HUE.md)
-
-
 

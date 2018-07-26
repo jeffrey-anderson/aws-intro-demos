@@ -161,25 +161,28 @@ and even [Redshift Spectrum](https://aws.amazon.com/redshift/faqs/):
     ```
     NOTE: to load data for additional weather stations, repeat the SQL statement above omitting the "OVERWRITE" directive
     and entering the desired station ID in the "PARTITION" and "WHERE" clauses     
-1. Query your newly loaded table for low temperatures:
+1. Query your newly loaded table for average low temperatures in every month in 2017:
     ```
-    select id, obs_date, element_data * 0.18 + 32 LOW_TEMP_F
+    select id, year, month, round(avg(element_data * 0.18 + 32),2) AVG_LOW_TEMP_F
     from weather.noaa_ghcn_daily_pid_ym
     where ID = 'USW00014821'
-    and year = 2018
-    and element = 'TMIN';
+    and year = 2017
+    and element = 'TMIN'
+    group by id, year, month;
     ```    
-1. Finally, query the new table to see both the high and low temperatures for each day as we did before:
+1. Finally, query the new table to see both the high and low temperatures for each month on 2017 :
     ```
-    select a.id, a.obs_date, round(a.element_data * 0.18 + 32) LOW_TEMP_F, round(b.element_data * 0.18 + 32) HIGH_TEMP_F
-    from weather.noaa_ghcn_daily_pid_ym a 
-    JOIN weather.noaa_ghcn_daily_pid_ym b ON (a.id = b.id AND a.obs_date = b.obs_date and a.year = b.year)
-    where a.ID = 'USW00014821'
-    and a.element = 'TMIN'
-    and b.element = 'TMAX'
-    and a.year = 2018
-    order by a.obs_date;
+    select l.id, l.month, round(avg(l.element_data * 0.18 + 32),2) AVG_LOW_TEMP_F, round(avg(h.element_data * 0.18 + 32),2) AVG_HIGH_TEMP_F 
+    from weather.noaa_ghcn_daily_pid_ym as l
+    JOIN weather.noaa_ghcn_daily_pid_ym as h ON (l.id = h.id AND l.year = h.year AND l.month = h.month)
+    where l.ID = 'USW00014821'
+        and l.element = 'TMIN'
+        and h.element = 'TMAX'
+        and l.year = 2017
+    group by l.id, l.year, l.month
+    order by l.month;
     ```
+
 
 ## Uploading data and creating a table
 
