@@ -27,8 +27,11 @@ Slide Deck -- coming soon \
 
 ## Big data processing and analytics with Elastic Map Reduce (EMR)
 
-Slide Deck \
+[Slide Deck](https://docs.google.com/presentation/d/19OfZ2viuIlkeBpreP9IJr2nnjPC0dxxEiT8_cTYP9D0/edit?usp=sharing) \
 [Launching an EMR Cluster](./Demo-EMR-Launch.md) \
 [Using Spark with Jupyter](./Demo-Spark-Jupyter.md) \
 [Using Hive with HUE](./Demo-Hive-HUE.md)
 
+### Data Warehousing with Redshift
+
+[Slide Deck](https://docs.google.com/presentation/d/1sx1mdkdU_v7q_X8uBEYMc7i79A9ZcGgUbdlVrKi8qyQ/edit?usp=sharing)
