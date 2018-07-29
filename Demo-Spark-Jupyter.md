@@ -25,7 +25,7 @@ See [this link](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-jupyterh
 1. After entering each code block, press "Enter" while holding down the "Shift" key to run the code
 1. Code blocks that are running will have `In [*]:` in the left column
 1. Once execution completes the asterisk will be replaced by a statement number indicating the order of execution
-1. If you want to save some typing, upload and run [this](./weather-demo.ipynb) Jupyter notebook.
+1. **If you want to save some typing, upload and run [this](./weather-demo.ipynb) Jupyter notebook.**
 
 ### Lab
 

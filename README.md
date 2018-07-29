@@ -25,7 +25,7 @@ Slide Deck -- coming soon \
 
 [Slide Deck](https://1drv.ms/b/s!AsY74JxXap271S3A18St76SfyuXe)
 
-## Big data processing and analytics with Elastic Map Reduce (EMR)
+## Big Data Processing & Analytics With Elastic Map Reduce (EMR)
 
 [Slide Deck](https://docs.google.com/presentation/d/19OfZ2viuIlkeBpreP9IJr2nnjPC0dxxEiT8_cTYP9D0/edit?usp=sharing) \
 [Launching an EMR Cluster](./Demo-EMR-Launch.md) \

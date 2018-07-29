@@ -44,6 +44,7 @@ region and have access to it on your current computer
     * Hue
     * Spark
     * Zeppelin
+    * Presto
 1. Click "Next" to move to step 2
 
 ### Step 2: Hardware
