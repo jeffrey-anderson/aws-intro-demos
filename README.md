@@ -34,5 +34,8 @@ Slide Deck -- coming soon \
 [Using Spark with Jupyter](./Demo-Spark-Jupyter.md) \
 [Using Hive with HUE](./Demo-Hive-HUE.md)
 
+### Data Warehousing with Redshift
+
+[Slide Deck](https://docs.google.com/presentation/d/19OfZ2viuIlkeBpreP9IJr2nnjPC0dxxEiT8_cTYP9D0/edit?usp=sharing)
 
 
