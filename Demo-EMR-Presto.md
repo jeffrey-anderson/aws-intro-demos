@@ -12,7 +12,7 @@
 [AWS Hue Documentation](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-hue.html) \
 [HUE](http://gethue.com/) website \
 [Apache Hive](http://hive.apache.org/) website \
-[Hive Language Manual](https://cwiki.apache.org/confluence/display/Hive/LanguageManual)
+[Hive Language Manual](https://cwiki.apache.org/confluence/display/Hive/LanguageManual) \
 [Presto](https://prestodb.io/) website
 
 
