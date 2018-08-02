@@ -29,9 +29,11 @@ Slide Deck -- coming soon \
 
 [Slide Deck](https://docs.google.com/presentation/d/19OfZ2viuIlkeBpreP9IJr2nnjPC0dxxEiT8_cTYP9D0/edit?usp=sharing) \
 [Launching an EMR Cluster](./Demo-EMR-Launch.md) \
-[Using Spark with Jupyter](./Demo-Spark-Jupyter.md) \
+[Submitting Steps to EMR](Demo-EMR-Steps.md) \
+[Using Presto with Hue](./Demo-EMR-Presto.md) \
 [Using Hive with Hue](./Demo-Hive-HUE.md) \
-[Using Presto with Hue](./Demo-EMR-Presto.md)
+[Using Spark with Jupyter](./Demo-Spark-Jupyter.md) \
+[Using EMR to do ETL](Demo-EMR-as-ETL.md) 
 
 ### Data Warehousing with Redshift
 

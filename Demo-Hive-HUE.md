@@ -188,6 +188,11 @@ and even [Redshift Spectrum](https://aws.amazon.com/redshift/faqs/):
 
 ## Where to go from here
 
+[Submitting Steps to EMR](Demo-EMR-Steps.md) \
+[Using Presto with Hue](./Demo-EMR-Presto.md) \
+[Using Spark with Jupyter](./Demo-Spark-Jupyter.md)  \
+[Using EMR to do ETL](Demo-EMR-as-ETL.md) 
+
 ## Finally
 
 Once you are done with the demos, terminate your cluster to avoid additional charges. 

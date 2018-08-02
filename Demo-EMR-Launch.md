@@ -115,9 +115,12 @@ For a comprehensive list of EMR security options, see [this guide](https://docs.
 ## Where to go from here
 
 Once your cluster is up, running, and in a "Waiting" state, continue with the Using an EMR cluster demos:
-* [Using Spark with Jupyter](./Demo-Spark-Jupyter.md)
-* [Using Hive with HUE](./Demo-Hive-HUE.md)
-
+****
+[Submitting Steps to EMR](Demo-EMR-Steps.md) \
+[Using Presto with Hue](./Demo-EMR-Presto.md) \
+[Using Hive with Hue](./Demo-Hive-HUE.md) \
+[Using Spark with Jupyter](./Demo-Spark-Jupyter.md) \
+[Using EMR to do ETL](Demo-EMR-as-ETL.md) 
 
 ## Finally
 

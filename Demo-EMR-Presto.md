@@ -67,19 +67,28 @@ S3 buckets.
     order by l.year, l.month
     ``` 
 1. Switch to the Hive editor and run the query above. Was it slower or faster?
+
 1. Compare performance of the raw data to the query optimized data created in the step you ran earlier
 
+1. Determine the rank order for yearly average high from 1988 on:
+    ```
+    select id, year, round(avg(element_data * 0.18 + 32),2) AVG_HIGH_TEMP_F, 
+       rank() OVER (ORDER BY avg(element_data)) rank
+    from weather.noaa_ghcn_daily_hdfs_pid_ym
+    where ID = 'USW00014821'
+        and year >= 1998
+        and element = 'TMAX'
+    group by id, year
+    order by year
+    ```
+1. What year is the coolest?  The warmest?
 
-1. Since the start of 2008:
-    ```
-    select l.id, l.year, l.month, round(avg(l.element_data * 0.18 + 32),2) AVG_LOW_TEMP_F, round(avg(h.element_data * 0.18 + 32),2) AVG_HIGH_TEMP_F 
-    from weather.noaa_ghcn_daily_hdfs_pid_ym as l
-    JOIN weather.noaa_ghcn_daily_hdfs_pid_ym as h ON (l.id = h.id AND l.year = h.year AND l.month = h.month)
-    where l.ID = 'USW00014821'
-        and l.year >= 2008
-        and l.element = 'TMIN'
-        and h.element = 'TMAX'
-    group by l.id, l.year, l.month
-    order by l.year, l.month
-    ```
-1. Switch to the Hive editor and run the query above. Was it slower or faster?
+## Where to go from here
+
+[Using Hive with Hue](./Demo-Hive-HUE.md) \
+[Using Spark with Jupyter](./Demo-Spark-Jupyter.md) \
+[Using EMR to do ETL](Demo-EMR-as-ETL.md)  
+
+## Finally
+
+Once you are done with the demos, terminate your cluster to avoid additional charges. 

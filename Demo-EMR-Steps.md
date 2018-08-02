@@ -14,7 +14,7 @@
 [Hive Language Manual](https://cwiki.apache.org/confluence/display/Hive/LanguageManual) 
 
 
-## Launching HUE:
+## Adding Steps to a running EMR cluster:
 
 1. Choose EMR from the Services screen
 1. From the EMR cluster dashboard click on the running cluster name
@@ -27,3 +27,14 @@
 
 This step will take 6-10 minutes to run. Once the job completes, there will be a new internal Hive table called 
 "weather.noaa_ghcn_daily_hdfs_pid_ym"
+
+## Where to go from here
+
+[Using Presto with Hue](./Demo-EMR-Presto.md) \
+[Using Hive with Hue](./Demo-Hive-HUE.md) \
+[Using Spark with Jupyter](./Demo-Spark-Jupyter.md) \
+[Using EMR to do ETL](Demo-EMR-as-ETL.md) 
+
+## Finally
+
+Once you are done with the demos, terminate your cluster to avoid additional charges. 
