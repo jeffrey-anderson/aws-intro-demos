@@ -11,7 +11,7 @@ Submit feedback, corrections and suggestions to me at jeff --at-- jeff-anderson.
 
 ## Amazon Simple Storage Service (S3)
 
-[Slide Deck](https://s3.us-east-2.amazonaws.com/public.jeff-anderson.com/IntroToAWS-Storage.pdf) \
+[Slide Deck](https://docs.google.com/presentation/d/1J6t59HH19LsCtU0WW2U5PJ7YDYP_dlMFv1_YCfOgZnY/edit?usp=sharing) \
 [Demo - S3 Storage](Demo-OnlineStorage.docx) \
 [Demo - Website Hosting](Demo-S3-WebsiteHosting.docx)
 
