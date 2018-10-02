@@ -102,7 +102,7 @@ export DSS_CONFIG=/home/ec2-user/tpch-kit/dbgen
 export DSS_QUERY=$DSS_CONFIG/queries
 export DSS_PATH=/var/tmp/redshift-data/single-files
 ```
-1. Prepare the source to compile: ``make MACHINE=LINUX DATABASE=POSTGRESQL``
+1. Prepare and compile the source code: ``make MACHINE=LINUX DATABASE=POSTGRESQL``
 1. Create the test data with a scale factor of 25: ``./dbgen -s 25`` \
 **NOTE: this command will take about 10 minutes to complete**
 
@@ -116,11 +116,11 @@ for ((i=1;i<=22;i++)); do
 done
 ```
 
-## Split the sample data into 8 files for parallel loading
+## Split the sample data into multiple files for parallel loading
 
 Since we will be using a cluster with 4 machines that each have 2 slices, we will 
 follow the Redshift best practice to [split the larger files](https://docs.aws.amazon.com/redshift/latest/dg/c_best-practices-use-multiple-files.html)
-into 8 smaller files:
+into smaller files in multiples of 8:
 
 1. Change to the data output directory: ``cd /var/tmp/redshift-data/single-files``
 
@@ -135,7 +135,7 @@ into 8 smaller files:
     ```
     **NOTE: these commands will take about 7 minutes total to complete**
 1. Create a directory for the split files: ``mkdir ../multiple-files``
-1. Move the split files to the multi file directory: ``mv *-0?.tbl ../multiple-files``
+1. Move the split files to the multi file directory: ``mv *-??.tbl ../multiple-files``
 1. Put a copy of the two smaller files in the multi file directory: ``cp nation.tbl region.tbl ../multiple-files``
 
 ## Compress the data to save space and improve table load times
