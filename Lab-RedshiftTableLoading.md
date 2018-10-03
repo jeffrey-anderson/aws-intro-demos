@@ -182,13 +182,22 @@ to use with the COPY command:
      <summary>Answer</summary>
      <p>Yes. Using multiple compressed files loaded the data in about one third of the time</p>
    </details>
+   
+1. What benefit is there for splitting data into multiple files? 
+   <details>
+     <summary>Answer</summary>
+     <ul>
+       <li>Files can be loaded in parallel which substantially improves load times. See
+       <a href="https://docs.aws.amazon.com/redshift/latest/dg/c_best-practices-use-multiple-files.html">
+       this link</a> for details</li>
+   </details>
 
 1. What benefit is there to compressing the files?
    <details>
      <summary>Answer</summary>
      <ul>
        <li>Compressing the files saves space in S3 which reduces storage expense</li>
-       <li>While compressing smaller single files doesn't noticeably impact load times, it does for much larger files</li> 
+       <li>While compressing smaller single files doesn't noticeably improve load times, it will for larger files</li> 
    </details>
 
 ## Continue with the Labs
