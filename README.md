@@ -35,11 +35,18 @@ Submit feedback, corrections and suggestions to me at jeff --at-- jeff-anderson.
 * [Using Spark with Jupyter](./Demo-Spark-Jupyter.md)
 * [Using EMR to do ETL](Demo-EMR-as-ETL.md) 
 
-### Data Warehousing with Redshift
+## Data Warehousing with Redshift
 
 * [Slide Deck](https://docs.google.com/presentation/d/1HtNHkwARs-ecpimiROqN23Elewt8OgvJC9sheO7ldZ0/edit?usp=sharing)
-* **Demo:** Analyzing and optimizing table design
-* **Demo:** Improving table load times
+
+### Labs:
+* [Creating Sample Data For Redshift](Demo-RedshiftDataPrep.md) **NOTE:** this takes about 2 hours to complete and 
+must be done first
+* [Launching a Redshift Cluster](Lab-LaunchRedchiftCluster.md)
+* [Loading Data](Lab-RedshiftTableLoading.md)
+* [Analyzing and Optimizing Query Performance](Demo-RedshiftTableAnalysis.md)
+* [Deleting a Redshift Cluster](Lab-DeletingRedshiftCluster.md)
+* Creating a New Cluster From a Snapshot
 
 
 

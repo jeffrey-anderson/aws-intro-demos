@@ -16,12 +16,9 @@ so, to reduce ongoing expenses, remember to delete them once they are no longer 
 ## Prerequisites
 
 1. You are logged in to the console and have set **Ohio** as the region
-1. You completed the [Creating Sample Data For Redshift](Demo-RedshiftDataPrep.md) lab including loading the sample data 
-to a bucket in S3
-1. You have a SQL Query tool such as [DBeaver](https://dbeaver.io/download/) installed on your machine
 1. You [created an IAM role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html#roles-creatingrole-service-console)
 named "redshift-S3-ro-access" for the AWS *Redshift* service, *Redshift-customizable* use case, attaching the *AmazonS3ReadOnlyAccess* policy 
-1. You created an [EC2 security group](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html) 
+1. **If you will NOT be using the Redshift Query Editor**: you created an [EC2 security group](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html) 
 in your default VPC named "redshift-access-from-my-ip" which has the following inbound rules:
 
 | Type | Protocol | Port Range | Source |

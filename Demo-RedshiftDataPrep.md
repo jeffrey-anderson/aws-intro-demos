@@ -9,8 +9,8 @@ is running
 * See the [EC2 on demand price sheet](https://aws.amazon.com/ec2/pricing/on-demand/) for current on demand instance prices
 * This activity will take around **two hours** to complete 
 * **IMPORTANT:** Make sure to terminate your instance once you have created the sample data
-* Finally, until you delete the sample data from S3, there will be an ongoing storage charge for 16G of data
-which will cost around 37 cents per month. To avoid this charge, delete the sample data from S3 once you are done with
+* Finally, until you delete the sample data from S3, there will be an ongoing storage charge for 22G of data
+which will cost around 51 cents per month. To avoid this charge, delete the sample data from S3 once you are done with
 the lab.
     
 ## Prerequisites
@@ -22,7 +22,7 @@ the lab.
 name of your choosing in the **Ohio region** 
 to store your sample data
 1. You [created an IAM role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html#roles-creatingrole-service-console)
-named "S3-full-access" for the *AWS EC2 service* attaching the *AmazonS3FullAccess* policy 
+named "EC2-S3-full-access" for the *AWS EC2 service* attaching the *AmazonS3FullAccess* policy 
 1. You created an [EC2 security group](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html) named 
 "ssh-access-from-my-ip" which has the following inbound rules:
 
@@ -45,7 +45,7 @@ See [Amazon EC2 Spot Instances Pricing](https://aws.amazon.com/ec2/spot/pricing/
 1. In the "Subnet" field, choose a subnet that corresponds with the availability zone having the lowest current spot
 prices (or leave the default if every availability zone has an identical current price)
 1. Choose "Enable" in the "Auto-assign Public IP" field
-1. In the "IAM role" field, choose "S3-full-access"
+1. In the "IAM role" field, choose "EC2-S3-full-access"
 1. Click "Next: Add Storage"
 1. Keeping the settings presented, click "Next: Add Tags"
 1. Optionally, click "Add Tag" and enter "Name" for the "Key" and "redshift-data-prep" for the "Value"
@@ -117,6 +117,12 @@ done
 ```
 **Note:** This creates for PostgreSQL. Some of them will need to be modified to run in Redshift 
 
+## Save a copy of the order.tbl file for testing the performance of compressed vs. uncompressed files
+
+1. Create a directory for uncompressed : ``mkdir /var/tmp/redshift-data/raw``
+1. Change to the data output directory: ``cd /var/tmp/redshift-data/single-files``
+1. Put a copy of the orders file raw files directory: ``cp orders.tbl /var/tmp/redshift-data/raw``
+ 
 ## Split the sample data into multiple files for parallel loading
 
 Since we will be using a cluster with 4 machines that each have 2 slices, we will 
@@ -136,9 +142,9 @@ orders tables are so big, they are split into more files to improve data load co
     split -l 31250 --numeric-suffixes=0 supplier.tbl supplier- --additional-suffix=.tbl
     ```
     **NOTE: these commands will take about 7 minutes total to complete**
-1. Create a directory for the split files: ``mkdir ../multiple-files``
-1. Move the split files to the multi file directory: ``mv *-??.tbl ../multiple-files``
-1. Put a copy of the two smaller files in the multi file directory: ``cp nation.tbl region.tbl ../multiple-files``
+1. Create a directory for the split files: ``mkdir /var/tmp/redshift-data/multiple-files``
+1. Move the split files to the multi file directory: ``mv *-??.tbl /var/tmp/redshift-data/multiple-files``
+1. Put a copy of the two smaller files in the multi file directory: ``cp nation.tbl region.tbl /var/tmp/redshift-data/multiple-files``
 
 ## Compress the data to save space and improve table load times
 
@@ -168,6 +174,12 @@ data and uploaded to to S3, we are done and no longer need this instance.
 1. Leaving "Terminate instances" checked, click "Confirm" in the "Cancel Spot request" dialog
 1. Once the state changes to "cancelled", choose "Instances" in the left navigation and verify your instance is in a 
 "shutting down" or "terminated" state
+
+
+## Credits
+Transaction Processing Council [TCP-H](http://www.tpc.org/tpch/) decision support benchmark, built using the 
+[tpch-kit](https://github.com/gregrahn/tpch-kit) from [Greg Rahn](https://github.com/gregrahn).
+
 
 ---
 &copy; 2018 by [Jeff Anderson](https://jeff-anderson.com/). All rights reserved

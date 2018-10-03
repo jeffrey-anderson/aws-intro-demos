@@ -200,6 +200,19 @@ to use with the COPY command:
        <li>While compressing smaller single files doesn't noticeably improve load times, it will for larger files</li> 
    </details>
 
+1. What benefits are there for using a manifest file? 
+   <details>
+     <summary>Answer</summary>
+     <ul>
+       <li>It allows us to load data from multiple files using a 
+       <a href="https://docs.aws.amazon.com/redshift/latest/dg/c_best-practices-single-copy-command.html">
+       single copy command</a></li>
+       <li>Amazon S3 provides eventual consistency for some operations. Using a manafest file can help alleviate 
+       issues related to this behavior. See 
+       <a href="https://docs.aws.amazon.com/redshift/latest/dg/managing-data-consistency.html">
+       this link</a> for more details</li>
+   </details>
+
 ## Continue with the Labs
 
 1. [Analyzing and Tuning Tables](Demo-RedshiftTableAnalysis.md)
@@ -207,6 +220,19 @@ to use with the COPY command:
 ## IMPORTANT - Don't Forget
 
 [Delete the cluster](Lab-DeletingRedshiftCluster.md) as soon as you are done with the labs to stop the charges
+
+## Credits
+Inspired by the Redshift [table loading](https://docs.aws.amazon.com/redshift/latest/dg/c_best-practices-loading-take-loading-data-tutorial.html)
+tutorial, using data from the 
+[TCP-H](http://www.tpc.org/tpch/) decision support benchmark, built using the 
+[tpch-kit](https://github.com/gregrahn/tpch-kit) from 
+[Greg Rahn](https://github.com/gregrahn).
+
+## References
+
+* [Amazon Redshift Best Practices](https://docs.aws.amazon.com/redshift/latest/dg/best-practices.html)
+* [Amazon Redshift Engineering’s Advanced Table Design Playbook](https://aws.amazon.com/blogs/big-data/amazon-redshift-engineerings-advanced-table-design-playbook-preamble-prerequisites-and-prioritization/)
+* [Top 10 Performance Tuning Techniques for Amazon Redshift](https://aws.amazon.com/blogs/big-data/top-10-performance-tuning-techniques-for-amazon-redshift/)
 
 
 ---
