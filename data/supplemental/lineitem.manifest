@@ -1,0 +1,28 @@
+{
+  "entries": [
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-00.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-01.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-02.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-03.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-04.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-05.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-06.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-07.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-08.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-09.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-10.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-11.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-12.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-13.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-14.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-15.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-16.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-17.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-18.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-19.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-20.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-21.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-22.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/lineitem-23.tbl.gz", "mandatory":true}
+  ]
+}

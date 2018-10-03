@@ -1,0 +1,12 @@
+{
+  "entries": [
+    {"url":"s3://redshift-lab-sample-data/multiple-files/customer-00.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/customer-01.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/customer-02.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/customer-03.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/customer-04.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/customer-05.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/customer-06.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/customer-07.tbl.gz", "mandatory":true}
+  ]
+}

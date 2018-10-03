@@ -1,0 +1,20 @@
+{
+  "entries": [
+    {"url":"s3://redshift-lab-sample-data/multiple-files/orders-00.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/orders-01.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/orders-02.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/orders-03.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/orders-04.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/orders-05.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/orders-06.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/orders-07.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/orders-08.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/orders-09.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/orders-10.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/orders-11.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/orders-12.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/orders-13.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/orders-14.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/orders-15.tbl.gz", "mandatory":true}
+  ]
+}

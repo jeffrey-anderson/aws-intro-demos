@@ -40,3 +40,8 @@ Submit feedback, corrections and suggestions to me at jeff --at-- jeff-anderson.
 * [Slide Deck](https://docs.google.com/presentation/d/1HtNHkwARs-ecpimiROqN23Elewt8OgvJC9sheO7ldZ0/edit?usp=sharing)
 * **Demo:** Analyzing and optimizing table design
 * **Demo:** Improving table load times
+
+
+
+---
+&copy; 2018 by [Jeff Anderson](https://jeff-anderson.com/). All rights reserved

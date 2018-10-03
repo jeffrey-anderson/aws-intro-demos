@@ -1,0 +1,12 @@
+{
+  "entries": [
+    {"url":"s3://redshift-lab-sample-data/multiple-files/partsupp-00.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/partsupp-01.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/partsupp-02.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/partsupp-03.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/partsupp-04.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/partsupp-05.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/partsupp-06.tbl.gz", "mandatory":true},
+    {"url":"s3://redshift-lab-sample-data/multiple-files/partsupp-07.tbl.gz", "mandatory":true}
+  ]
+}

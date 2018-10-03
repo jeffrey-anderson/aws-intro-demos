@@ -125,3 +125,6 @@ Once your cluster is up, running, and in a "Waiting" state, continue with the Us
 ## Finally
 
 Once you are done with the demos, terminate your cluster to avoid additional charges. 
+
+---
+&copy; 2018 by [Jeff Anderson](https://jeff-anderson.com/). All rights reserved

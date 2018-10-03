@@ -60,3 +60,5 @@ all of it's tables if you ran this earlier.
 Once you are done with the demos, terminate your cluster to avoid additional charges. 
 
 
+---
+&copy; 2018 by [Jeff Anderson](https://jeff-anderson.com/). All rights reserved

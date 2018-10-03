@@ -164,3 +164,8 @@ temperatures calculated from the DATA_VALUE from rows with an element of 'TMIN':
 ## Finally
 
 Once you are done with the demos, terminate your cluster to avoid additional charges. 
+
+
+
+---
+&copy; 2018 by [Jeff Anderson](https://jeff-anderson.com/). All rights reserved

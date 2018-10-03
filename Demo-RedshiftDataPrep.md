@@ -115,23 +115,25 @@ for ((i=1;i<=22;i++)); do
   ./qgen -v -c -s 25 ${i} > /var/tmp/redshift-data/queries/tpch-q${i}.sql
 done
 ```
+**Note:** This creates for PostgreSQL. Some of them will need to be modified to run in Redshift 
 
 ## Split the sample data into multiple files for parallel loading
 
 Since we will be using a cluster with 4 machines that each have 2 slices, we will 
 follow the Redshift best practice to [split the larger files](https://docs.aws.amazon.com/redshift/latest/dg/c_best-practices-use-multiple-files.html)
-into smaller files in multiples of 8:
+into smaller files. The ``-l`` parameter in the commands below is computed by counting the number of lines in the file with ``wc -l <filename>`` then dividing the
+line count by a multiple of the number of slices in the cluster (eight in our case). Since the line item and
+orders tables are so big, they are split into more files to improve data load concurrency.
 
 1. Change to the data output directory: ``cd /var/tmp/redshift-data/single-files``
-
 1. Run the following commands to split the files:
     ```
-    split -l 468750 -d customer.tbl customer- --additional-suffix=.tbl
+    split -l 468750 --numeric-suffixes=0 customer.tbl customer- --additional-suffix=.tbl
     split -l 6249850 --numeric-suffixes=0 lineitem.tbl lineitem- --additional-suffix=.tbl
     split -l 2343750 --numeric-suffixes=0 orders.tbl orders- --additional-suffix=.tbl
-    split -l 2500000 -d partsupp.tbl partsupp- --additional-suffix=.tbl
-    split -l 625000 -d part.tbl part- --additional-suffix=.tbl
-    split -l 31250 -d supplier.tbl supplier- --additional-suffix=.tbl
+    split -l 2500000 --numeric-suffixes=0 partsupp.tbl partsupp- --additional-suffix=.tbl
+    split -l 625000 --numeric-suffixes=0 part.tbl part- --additional-suffix=.tbl
+    split -l 31250 --numeric-suffixes=0 supplier.tbl supplier- --additional-suffix=.tbl
     ```
     **NOTE: these commands will take about 7 minutes total to complete**
 1. Create a directory for the split files: ``mkdir ../multiple-files``
@@ -167,4 +169,5 @@ data and uploaded to to S3, we are done and no longer need this instance.
 1. Once the state changes to "cancelled", choose "Instances" in the left navigation and verify your instance is in a 
 "shutting down" or "terminated" state
 
-
+---
+&copy; 2018 by [Jeff Anderson](https://jeff-anderson.com/). All rights reserved
