@@ -4,13 +4,13 @@
 
 * Because this task is CPU and storage intensive, we will be using an instance type that is not eligible for the
 EC2 [free tier](https://aws.amazon.com/free/) 
-* We will use a spot request to save money but the worst case is you will spend around $.20 per hour while your instance 
+* We will use a spot request to save money but, at worst case, you will spend around 39 cents per hour while your instance 
 is running
 * See the [EC2 on demand price sheet](https://aws.amazon.com/ec2/pricing/on-demand/) for current on demand instance prices
-* This activity will take around **two hours** to complete 
-* **IMPORTANT:** Make sure to terminate your instance once you have created the sample data
-* Finally, until you delete the sample data from S3, there will be an ongoing storage charge for 22G of data
-which will cost around 51 cents per month. To avoid this charge, delete the sample data from S3 once you are done with
+* This activity will take around **90 minutes** to complete 
+* **IMPORTANT:** Make sure to terminate your instance once you have created the sample data to avoid ongoing charges
+* Finally, until you delete the sample data from S3, there will be an ongoing storage charge for 42G of data
+which will cost around $1 per month. To avoid this charge, delete the sample data from S3 once you are done with
 the lab.
     
 ## Prerequisites
@@ -35,10 +35,10 @@ named "EC2-S3-full-access" for the *AWS EC2 service* attaching the *AmazonS3Full
 1. From the AWS Console, choose "EC2" from the "Services" menu
 1. From the EC2 dashboard, choose "Launch Instance"
 1. Select the "Amazon Linux 2 AMI (HVM), SSD Volume Type" Amazon Machine Image (AMI)
-1. Because this task is CPU and storage intensive, choose compute optimized "c5d.xlarge" as the instance type
+1. Because this task is CPU and storage intensive, choose compute optimized "c5d.2xlarge" as the instance type
 1. Click "Next: Configure Instance Details"
 1. Under "Purchasing Option" check "Request Spot instances"
-1. Enter "0.192" in the "Maximum price" field. **NOTE:** since this is the full on-demand rate, bidding the full price 
+1. Enter "0.384" in the "Maximum price" field. **NOTE:** since this is the full on-demand rate, bidding the full price 
 substantially reduces the likelihood your instance will will be terminated because Amazon needs the capacity back to 
 meet current demand. The actual charge you pay will be close to what appears in the "Current Price" table.
 See [Amazon EC2 Spot Instances Pricing](https://aws.amazon.com/ec2/spot/pricing/) for more details.
@@ -68,11 +68,11 @@ ssh -i ~/.ssh/ohio-ec2-key.pem ec2-user@ec2-XX-XXX-XXX-XXX.us-east-2.compute.ama
 ```
 ## Create a Filesystem for your Data
 
-The instance type we chose has 100 gigs of high performance ephemeral storage which is not automatically prepared when the instance is
+The instance type we chose has 200 gigs of high performance ephemeral storage which is not automatically prepared when the instance is
 launched. This procedure will make that storage available.
 
 1. Next, enter ``sudo fdisk -l`` to view the list of available disks
-1. Note the device name, such as "/dev/nvme1n1" which has a size of 93.1 GiB
+1. Note the device name, such as "/dev/nvme1n1" which has a size of 186.3 GiB
 1. Format the disk using the mke2fs command: ``sudo mke2fs /dev/nvme1n1`` substituting your device name if different
 1. Mount the disk under /var/tmp: ``sudo mount /dev/nvme1n1 /var/tmp``
 1. Run ``df -h`` to verify the space is available which should produce output like this:
@@ -84,9 +84,9 @@ launched. This procedure will make that storage available.
     tmpfs           3.8G     0  3.8G   0% /sys/fs/cgroup
     /dev/nvme0n1p1  8.0G  1.2G  6.9G  14% /
     tmpfs           763M     0  763M   0% /run/user/1000
-    /dev/nvme1n1     92G   60M   87G   1% /var/tmp
+    /dev/nvme1n1    184G   60M  174G   1% /var/tmp
     ```
-    Note the last entry is a 92G filesystem mounted on /var/tmp
+    Note the last entry is a 184G filesystem mounted on /var/tmp
 1. Create a data directory under /var/tmp: ``sudo mkdir /var/tmp/redshift-data``
 1. Change the ownership of the directory so the ec2-user has full access: ``sudo chown ec2-user.ec2-user /var/tmp/redshift-data``
 
@@ -94,13 +94,13 @@ launched. This procedure will make that storage available.
 
 1. Install git, make and gcc: ``sudo yum install -y git make gcc``
 1. Clone the [tcph-kit](https://github.com/gregrahn/tpch-kit) source code: ``git clone https://github.com/gregrahn/tpch-kit.git``
-1. Create a directory for the data files: ``mkdir /var/tmp/redshift-data/single-files``
+1. Create a directory for the data files: ``mkdir /var/tmp/redshift-data/psv``
 1. Change to the source directory: ``cd tpch-kit/dbgen``
 1. Set environment variables used for generating data and queries: 
 ```
 export DSS_CONFIG=/home/ec2-user/tpch-kit/dbgen
 export DSS_QUERY=$DSS_CONFIG/queries
-export DSS_PATH=/var/tmp/redshift-data/single-files
+export DSS_PATH=/var/tmp/redshift-data/psv
 ```
 1. Prepare and compile the source code: ``make MACHINE=LINUX DATABASE=POSTGRESQL``
 1. Create the test data with a scale factor of 25: ``./dbgen -s 25`` \
@@ -115,13 +115,11 @@ for ((i=1;i<=22;i++)); do
   ./qgen -v -c -s 25 ${i} > /var/tmp/redshift-data/queries/tpch-q${i}.sql
 done
 ```
-**Note:** This creates for PostgreSQL. Some of them will need to be modified to run in Redshift 
+**Note:** This creates queries for PostgreSQL. Most, but not all, run unmodified in Redshift 
 
-## Save a copy of the order.tbl file for testing the performance of compressed vs. uncompressed files
-
-1. Create a directory for uncompressed : ``mkdir /var/tmp/redshift-data/raw``
-1. Change to the data output directory: ``cd /var/tmp/redshift-data/single-files``
-1. Put a copy of the orders file raw files directory: ``cp orders.tbl /var/tmp/redshift-data/raw``
+## Create directories for compressed and compressed and split versions of the files
+1. Create a directory for the compressed data files: ``mkdir /var/tmp/redshift-data/psv-gz``
+1. Create a directory for the compressed split data files: ``mkdir /var/tmp/redshift-data/m-psv-gz``
  
 ## Split the sample data into multiple files for parallel loading
 
@@ -131,36 +129,57 @@ into smaller files. The ``-l`` parameter in the commands below is computed by co
 line count by a multiple of the number of slices in the cluster (eight in our case). Since the line item and
 orders tables are so big, they are split into more files to improve data load concurrency.
 
-1. Change to the data output directory: ``cd /var/tmp/redshift-data/single-files``
-1. Run the following commands to split the files:
+1. Change to the compressed individual files directory: ``cd /var/tmp/redshift-data/psv-gz``
+1. Copy the uncompressed files into the current directory: ``cp /var/tmp/redshift-data/psv/*.tbl .``
+1. Select all of the following commands, copy them to your clipboard and paste them into your terminal window to split the files:
     ```
-    split -l 468750 --numeric-suffixes=0 customer.tbl customer- --additional-suffix=.tbl
-    split -l 6249850 --numeric-suffixes=0 lineitem.tbl lineitem- --additional-suffix=.tbl
-    split -l 2343750 --numeric-suffixes=0 orders.tbl orders- --additional-suffix=.tbl
-    split -l 2500000 --numeric-suffixes=0 partsupp.tbl partsupp- --additional-suffix=.tbl
-    split -l 625000 --numeric-suffixes=0 part.tbl part- --additional-suffix=.tbl
-    split -l 31250 --numeric-suffixes=0 supplier.tbl supplier- --additional-suffix=.tbl
+    split -l 468750 --numeric-suffixes=0 customer.tbl customer- --additional-suffix=.tbl &
+    split -l 6249850 --numeric-suffixes=0 lineitem.tbl lineitem- --additional-suffix=.tbl &
+    split -l 2343750 --numeric-suffixes=0 orders.tbl orders- --additional-suffix=.tbl &
+    split -l 2500000 --numeric-suffixes=0 partsupp.tbl partsupp- --additional-suffix=.tbl &
+    split -l 625000 --numeric-suffixes=0 part.tbl part- --additional-suffix=.tbl &
+    split -l 31250 --numeric-suffixes=0 supplier.tbl supplier- --additional-suffix=.tbl &
+    
+    for job in `jobs -p`
+    do
+        wait $job
+    done
+    
     ```
-    **NOTE: these commands will take about 7 minutes total to complete**
-1. Create a directory for the split files: ``mkdir /var/tmp/redshift-data/multiple-files``
-1. Move the split files to the multi file directory: ``mv *-??.tbl /var/tmp/redshift-data/multiple-files``
-1. Put a copy of the two smaller files in the multi file directory: ``cp nation.tbl region.tbl /var/tmp/redshift-data/multiple-files``
+    **NOTE: This will take 2-3 minutes to complete**
 
 ## Compress the data to save space and improve table load times
 
 Another Redshift best practice is to [compress the data files](https://docs.aws.amazon.com/redshift/latest/dg/c_best-practices-compress-data-files.html).
-This procedure will compress the data using gzip compression. **NOTE: Each directory will take around 25-30 minutes to compress**
+This procedure will compress the data using gzip compression.
 
-1. Change to the multiple-files directory: ``/var/tmp/redshift-data/multiple-files``
-1. Gzip the files: ``gzip *``
-1. Change to the single files directory: ``cd /var/tmp/redshift-data/single-files``
-1. Gzip the files: ``gzip *``
+1. Select all of the following commands, copy them to your clipboard and paste them into your terminal window to compress the files:
+    ```
+    gzip lineitem.tbl &
+    gzip nation.tbl region.tbl customer.tbl orders.tbl part.tbl partsupp.tbl supplier.tbl &
+    gzip lineitem-00.tbl lineitem-01.tbl lineitem-02.tbl lineitem-03.tbl orders-00.tbl orders-01.tbl orders-02.tbl partsupp-00.tbl partsupp-01.tbl customer-06.tbl &
+    gzip lineitem-04.tbl lineitem-05.tbl lineitem-06.tbl lineitem-07.tbl orders-03.tbl orders-04.tbl orders-05.tbl partsupp-02.tbl partsupp-03.tbl customer-07.tbl &
+    gzip lineitem-08.tbl lineitem-09.tbl lineitem-10.tbl lineitem-11.tbl orders-06.tbl orders-07.tbl orders-08.tbl partsupp-04.tbl partsupp-05.tbl part-05.tbl part-06.tbl part-07.tbl &
+    gzip lineitem-12.tbl lineitem-13.tbl lineitem-14.tbl lineitem-15.tbl orders-09.tbl orders-10.tbl orders-11.tbl partsupp-06.tbl supplier-00.tbl supplier-01.tbl supplier-02.tbl &
+    gzip lineitem-16.tbl lineitem-17.tbl lineitem-18.tbl lineitem-19.tbl orders-12.tbl orders-13.tbl customer-00.tbl customer-01.tbl customer-02.tbl partsupp-07.tbl supplier-03.tbl supplier-04.tbl supplier-05.tbl &
+    gzip lineitem-20.tbl lineitem-21.tbl lineitem-22.tbl lineitem-23.tbl orders-14.tbl orders-15.tbl customer-03.tbl customer-04.tbl customer-05.tbl part-00.tbl part-01.tbl part-02.tbl part-03.tbl part-04.tbl supplier-06.tbl supplier-07.tbl &
+    for job in `jobs -p`
+    do
+        wait $job
+    done
+    
+    ```
+    **NOTE: This will take around 20 minutes to complete**
+
+## Move the compressed, split files into their own directory
+1. Move all files with -##.tbl.gz to the multiple, compressed file directory: ``mv *-[0-9][0-9].tbl.gz /var/tmp/redshift-data/m-psv-gz``
 
 ## Copy the files to your S3 bucket
 
 1. Change to the parent directory: ``cd /var/tmp/redshift-data``
 1. Use the aws s3 sync command to copy the data to the S3 bucket you created for the lab:
-``aws s3 sync . s3://redshift-lab-sample-data`` *replacing **redshift-lab-sample-data** with the bucket name you created* 
+``aws s3 sync . s3://redshift-lab-sample-data`` *replacing **redshift-lab-sample-data** with the bucket name you created*\
+**NOTE: This will take 4-5 minutes to complete**
 
 ## IMPORTANT: Shut down your instance
 
