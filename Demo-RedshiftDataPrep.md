@@ -171,8 +171,16 @@ This procedure will compress the data using gzip compression.
     ```
     **NOTE: This will take around 20 minutes to complete**
 
-## Move the compressed, split files into their own directory
-1. Move all files with -##.tbl.gz to the multiple, compressed file directory: ``mv *-[0-9][0-9].tbl.gz /var/tmp/redshift-data/m-psv-gz``
+## Move the compressed, split files into their own directories
+
+1. Move all files with -##.tbl.gz to their own directories:
+```
+for table in customer lineitem orders partsupp part supplier
+do
+   mkdir /var/tmp/redshift-data/m-psv-gz/${table}
+   mv ${table}-[0-9][0-9].tbl.gz /var/tmp/redshift-data/m-psv-gz/${table}
+done
+```
 
 ## Copy the files to your S3 bucket
 
